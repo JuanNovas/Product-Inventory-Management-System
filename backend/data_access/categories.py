@@ -9,9 +9,11 @@ def get_all_categories(conn):
     return categories
 
 @query_function
-def add_category(conn, name):
+def add_category(conn, name: str):
     if len(name) > 100:
-        raise ValueError("Error: Name len must be less than 100")
+        raise ValueError("Name len must be less than 100")
+    if len(name) == 0:
+        raise ValueError("Name cannot be null")
     cursor = conn.cursor()
     cursor.execute('INSERT INTO categories (name) VALUES (%s)', (name,))
     conn.commit()

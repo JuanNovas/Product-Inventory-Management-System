@@ -12,11 +12,13 @@ def get_all_products(conn):
 @query_function
 def add_product(conn, name: str, price: int=0, stock: int=0, category: int=None, producer: int=None):
     if len(name) > 255:
-        raise ValueError("Error: Name len must be less than 255")
+        raise ValueError("Name len must be less than 255")
+    if len(name.strip()) == 0:
+        raise ValueError("Name cannot be null")
     if price < 0:
-        raise ValueError("Error: price must be at least 0")
+        raise ValueError("Price must be at least 0")
     if stock < 0:
-        raise ValueError("Error stock must be at least 0")
+        raise ValueError("Stock must be at least 0")
     cursor = conn.cursor()
     cursor.execute('INSERT INTO products (name,price,stock,category_id,producer_id) VALUES (%s,%s,%s,%s,%s)',(name,price,stock,category,producer))
     conn.commit()
