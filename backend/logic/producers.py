@@ -2,6 +2,7 @@ from backend.data_access.producers import get_all_producers, get_producer_by_id,
 from backend.models.producers import Producer
 from psycopg2.extras import RealDictCursor
 
+
 def get_all_producers_data() -> list[RealDictCursor]:
     return get_all_producers()
 
