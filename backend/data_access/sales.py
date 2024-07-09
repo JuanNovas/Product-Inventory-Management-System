@@ -19,7 +19,7 @@ def get_all_sales(conn) -> list[RealDictCursor]:
 
 @query_function
 def get_sale_by_id(conn, id: int) -> RealDictCursor:
-    cursor = conn.cursor()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
     cursor.execute("SELECT * FROM sales WHERE id = (%s)",(id,))
     return cursor.fetchone()
 
