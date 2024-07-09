@@ -6,4 +6,4 @@ def get_all_producers_data() -> dict:
 
 
 def create_new_producer(producer: Producer) -> bool:
-    return add_producer(producer.name)
+    return add_producer(producer)
