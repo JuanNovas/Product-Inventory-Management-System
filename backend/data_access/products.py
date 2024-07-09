@@ -2,7 +2,7 @@ from psycopg2.extras import RealDictCursor
 from database.decorators import query_function
 from backend.models.products import Product
 
-def is_valid_product(product: Product):
+def is_valid_product(product: Product) -> None:
     if len(product.name.strip()) > 255:
         raise ValueError("Name len must be less than 255")
     if len(product.name.strip()) == 0:
