@@ -7,7 +7,6 @@ def query_function(func):
         try:
             result = func(conn, *args, **kwargs)
         except Exception as e:
-            print(e)
             result = e
         finally:
             conn.close()
