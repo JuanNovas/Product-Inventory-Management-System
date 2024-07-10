@@ -75,3 +75,37 @@ def set_stock(conn, id: int, new_stock: int):
     conn.commit()
     
     was_id_updated(cursor)
+    
+    
+@query_function
+def update_multiple_price_by_producer(conn, producer_id: int, rate: float):
+    cursor = conn.cursor()
+    cursor.execute("UPDATE products SET price = price * (%s) WHERE producer_id = (%s) RETURNING id",(rate, producer_id))
+    conn.commit()
+    
+    was_id_updated(cursor)
+    
+    
+@query_function
+def update_multiple_price_by_category(conn, category_id: int, rate: float):
+    cursor = conn.cursor()
+    cursor.execute("UPDATE products SET price = price * (%s) WHERE category_id = (%s) RETURNING id",(rate, category_id))
+    conn.commit()
+    
+    was_id_updated(cursor)
+    
+    
+@query_function
+def update_multiple_price_by_producer_category(conn, producer_id: int, category_id: int, rate: float):
+    cursor = conn.cursor()
+    cursor.execute("UPDATE products SET price = price * (%s) WHERE producer_id = (%s) AND category_id = (%s) RETURNING id",(rate, producer_id, category_id))
+    conn.commit()
+    
+    was_id_updated(cursor)
+    
+    
+@query_function
+def update_all_price(conn, rate: float):
+    cursor = conn.cursor()
+    cursor.execute("UPDATE products SET price = price * (%s)",(rate,))
+    conn.commit()
