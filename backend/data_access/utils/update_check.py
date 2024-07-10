@@ -12,4 +12,4 @@ def was_id_updated(cursor: Psycopg2Cursor):
     """
     updated_row = cursor.fetchone()
     if updated_row is None:
-        raise ValueError("ID not found")
+        raise KeyError("ID not found")
