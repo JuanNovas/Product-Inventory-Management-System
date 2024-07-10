@@ -62,7 +62,7 @@ def update_product(conn, id: int, product: Product) -> None:
 @query_function
 def set_stock(conn, id: int, new_stock: int):
     if new_stock < 0:
-        raise ValueError("New stock connot be negative")
+        new_stock = 0
     
     cursor = conn.cursor()
     cursor.execute("UPDATE products SET stock = (%s) WHERE id = (%s)",(new_stock,id))
