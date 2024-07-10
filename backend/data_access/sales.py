@@ -1,6 +1,7 @@
 from psycopg2.extras import RealDictCursor
 from database.decorators import query_function
 from backend.models.sales import Sale
+from backend.data_access.update_check import was_id_updated
 
 
 def is_valid_sale(sale: Sale):
@@ -35,13 +36,17 @@ def add_sale(conn, sale: Sale) -> None:
 @query_function
 def delete_sale(conn, id: int) -> None:
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM sales WHERE id = (%s)",(id,))
+    cursor.execute("DELETE FROM sales WHERE id = (%s) RETURNING id",(id,))
     conn.commit()
+    
+    was_id_updated(cursor)
     
     
 @query_function
 def update_sale(conn, id: int, sale: Sale) -> None:
     is_valid_sale(sale)
     cursor = conn.cursor()
-    cursor.execute("UPDATE sales SET product_id = (%s), total_price = (%s), amount = (%s) WHERE id = (%s)",(sale.product_id, sale.total_price, sale.amount, id))
+    cursor.execute("UPDATE sales SET product_id = (%s), total_price = (%s), amount = (%s) WHERE id = (%s) RETURNING id",(sale.product_id, sale.total_price, sale.amount, id))
     conn.commit()
+    
+    was_id_updated(cursor)

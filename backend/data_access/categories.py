@@ -1,6 +1,7 @@
 from psycopg2.extras import RealDictCursor
 from database.decorators import query_function
 from backend.models.categories import Category
+from backend.data_access.update_check import was_id_updated
 
 
 def is_valid_category(category: Category) -> None:
@@ -36,8 +37,10 @@ def add_category(conn, category: Category) -> None:
 @query_function
 def delete_category(conn, id: int) -> None:
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM categories WHERE id = (%s)",(id,))
+    cursor.execute("DELETE FROM categories WHERE id = (%s) RETURNING id",(id,))
     conn.commit()
+    
+    was_id_updated(cursor)
     
     
 @query_function
@@ -46,3 +49,5 @@ def update_category(conn, id: int, category: Category) -> None:
     cursor = conn.cursor()
     cursor.execute("UPDATE categories SET name = (%s) WHERE id = (%s)",(category.name, id))
     conn.commit()
+    
+    was_id_updated(cursor)

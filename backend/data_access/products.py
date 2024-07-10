@@ -1,6 +1,7 @@
 from psycopg2.extras import RealDictCursor
 from database.decorators import query_function
 from backend.models.products import Product
+from backend.data_access.update_check import was_id_updated
 
 def is_valid_product(product: Product) -> None:
     if len(product.name.strip()) > 255:
@@ -39,8 +40,10 @@ def add_product(conn, product: Product):
 @query_function
 def delete_product(conn, id: int) -> None:
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM products WHERE id = (%s)",(id,))
+    cursor.execute("DELETE FROM products WHERE id = (%s) RETURNING id",(id,))
     conn.commit()
+    
+    was_id_updated(cursor)
     
     
 @query_function
@@ -54,9 +57,12 @@ def update_product(conn, id: int, product: Product) -> None:
                    category_id = (%s),
                    producer_id = (%s) 
                    WHERE id = (%s)
+                   RETURNING id
                    """,
                    (product.name, product.price, product.stock, product.category_id, product.producer_id, id))
     conn.commit()
+    
+    was_id_updated(cursor)
     
     
 @query_function
@@ -65,5 +71,7 @@ def set_stock(conn, id: int, new_stock: int):
         new_stock = 0
     
     cursor = conn.cursor()
-    cursor.execute("UPDATE products SET stock = (%s) WHERE id = (%s)",(new_stock,id))
+    cursor.execute("UPDATE products SET stock = (%s) WHERE id = (%s) RETURNING id",(new_stock,id))
     conn.commit()
+    
+    was_id_updated(cursor)

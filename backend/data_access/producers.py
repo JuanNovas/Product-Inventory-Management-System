@@ -1,6 +1,7 @@
 from psycopg2.extras import RealDictCursor
 from database.decorators import query_function
 from backend.models.producers import Producer
+from backend.data_access.update_check import was_id_updated
 
 
 def is_valid_producer(producer: Producer) -> None:
@@ -35,13 +36,17 @@ def add_producer(conn, producer: Producer) -> None:
 @query_function
 def delete_producer(conn, id: int) -> None:
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM producers WHERE id = (%s)",(id,))
+    cursor.execute("DELETE FROM producers WHERE id = (%s) RETURNING id",(id,))
     conn.commit()
+    
+    was_id_updated(cursor)
     
     
 @query_function
 def update_producer(conn, id: int, producer: Producer) -> None:
     is_valid_producer(producer)
     cursor = conn.cursor()
-    cursor.execute("UPDATE producers SET name = (%s) WHERE id = (%s)",(producer.name, id))
+    cursor.execute("UPDATE producers SET name = (%s) WHERE id = (%s) RETURNING id",(producer.name, id))
     conn.commit()
+    
+    was_id_updated(cursor)
