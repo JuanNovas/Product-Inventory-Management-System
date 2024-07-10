@@ -1,5 +1,5 @@
 from fastapi.routing import APIRouter
-from backend.apis.status_response import status_response
+from backend.apis.utils.status_response import status_response
 from backend.logic.sales import get_all_sales_data, get_sale_data_by_id, create_new_sale, delete_sale_data, update_sale_data
 from backend.models.sales import Sale
 

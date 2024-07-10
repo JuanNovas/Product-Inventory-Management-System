@@ -1,5 +1,5 @@
 from fastapi.routing import APIRouter
-from backend.apis.status_response import status_response
+from backend.apis.utils.status_response import status_response
 from backend.logic.producers import get_all_producers_data, get_producer_data_by_id, create_new_producer, delete_producer_data, update_producer_data
 from backend.models.producers import Producer
 
