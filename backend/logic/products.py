@@ -29,7 +29,7 @@ def update_stock_data(id: int, new_stock: int) -> None:
 
 def add_stock_data(id: int, new_stock: int) -> None:
     product = get_product_by_id(id)
-    if product == []:
+    if product == None:
         return ValueError("ID not found")
     new_stock = product["stock"] + new_stock
     return set_stock(id, new_stock)
