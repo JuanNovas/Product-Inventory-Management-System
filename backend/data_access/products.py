@@ -57,3 +57,13 @@ def update_product(conn, id: int, product: Product) -> None:
                    """,
                    (product.name, product.price, product.stock, product.category_id, product.producer_id, id))
     conn.commit()
+    
+    
+@query_function
+def set_stock(conn, id: int, new_stock: int):
+    if new_stock < 0:
+        raise ValueError("New stock connot be negative")
+    
+    cursor = conn.cursor()
+    cursor.execute("UPDATE products SET stock = (%s) WHERE id = (%s)",(new_stock,id))
+    conn.commit()
