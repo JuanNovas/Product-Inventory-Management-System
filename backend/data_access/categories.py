@@ -1,7 +1,7 @@
 from psycopg2.extras import RealDictCursor
 from database.decorators import query_function
 from backend.models.categories import Category
-from backend.data_access.update_check import was_id_updated
+from backend.data_access.utils.update_check import was_id_updated
 
 
 def is_valid_category(category: Category) -> None:
