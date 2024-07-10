@@ -11,15 +11,15 @@ CREATE TABLE IF NOT EXISTS producers (
 CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    price INTEGER NOT NULL DEFAULT 0 CHECK (price > 0),
+    price INTEGER NOT NULL DEFAULT 0 CHECK (price >= 0),
     stock INTEGER NOT NULL DEFAULT 0 CHECK (stock >= 0),
-    category_id INTEGER REFERENCES categories(id),
-    producer_id INTEGER REFERENCES producers(id)
+    category_id INTEGER REFERENCES categories(id) ON DELETE SET NULL,
+    producer_id INTEGER REFERENCES producers(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS sales (
     id SERIAL PRIMARY KEY,
-    product_id INTEGER REFERENCES products(id),
+    product_id INTEGER REFERENCES products(id) ON DELETE SET NULL,
     total_price INTEGER CHECK (amount >= 0),
     amount INTEGER DEFAULT 1 CHECK (amount > 0),
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
