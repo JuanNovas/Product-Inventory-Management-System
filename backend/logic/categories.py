@@ -10,26 +10,26 @@ def get_all_categories_data() -> list[RealDictCursor]:
 
 
 def get_category_data_by_id(id: int) -> RealDictCursor:
-    if not (error:=check_id(id)):
+    if (error:=check_id(id)) != True:
         return error
     return get_category_by_id(id)
 
 
 def create_new_category(category: Category) -> None:
-    if not (error:=is_valid_category(category)):
+    if (error:=is_valid_category(category)) != True:
         return error
     return add_category(category)
 
 
 def delete_category_data(id: int) -> None:
-    if not (error:=check_id(id)):
+    if (error:=check_id(id)) != True:
         return error
     return delete_category(id)
 
 
 def update_category_data(id: int, category: Category) -> None:
-    if not (error:=check_id(id)):
+    if (error:=check_id(id)) != True:
         return error
-    if not (error:=is_valid_category(category)):
+    if (error:=is_valid_category(category)) != True:
         return error
     return update_category(id, category)

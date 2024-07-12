@@ -11,7 +11,7 @@ def get_all_products_data() -> list[RealDictCursor]:
 
 
 def get_product_data_by_id(id: int) -> RealDictCursor:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
     
     
@@ -81,7 +81,7 @@ def get_product_data_by_filter(product_query: ProductQuery) -> list[RealDictCurs
 
 
 def create_new_product(product: Product) -> None:
-    if not (error := is_valid_product(product)):
+    if (error := is_valid_product(product))  != True:
         return error
     
     
@@ -89,7 +89,7 @@ def create_new_product(product: Product) -> None:
 
 
 def delete_product_data(id: int) -> None:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
     
     
@@ -97,9 +97,9 @@ def delete_product_data(id: int) -> None:
 
 
 def update_product_data(id: int, product: Product) -> None:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
-    if not (error := is_valid_product(product)):
+    if (error := is_valid_product(product)) != True:
         return error
     
     
@@ -107,7 +107,7 @@ def update_product_data(id: int, product: Product) -> None:
 
 
 def update_stock_data(id: int, new_stock: int) -> None:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
     if type(new_stock) != int:
         return TypeError("New stock must be an int")
@@ -119,7 +119,7 @@ def update_stock_data(id: int, new_stock: int) -> None:
 
 
 def add_stock_data(id: int, new_stock: int) -> None:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
     if type(new_stock) != int:
         return TypeError("New stock must be an int")

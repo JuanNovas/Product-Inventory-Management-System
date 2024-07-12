@@ -10,26 +10,26 @@ def get_all_sales_data() -> list[RealDictCursor]:
 
 
 def get_sale_data_by_id(id: int) -> RealDictCursor:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
     return get_sale_by_id(id)
 
 
 def create_new_sale(sale: Sale) -> None:
-    if not (error := is_valid_sale(sale)):
+    if (error := is_valid_sale(sale)) != True:
         return error
     return add_sale(sale)
 
 
 def delete_sale_data(id: int) -> None:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
     return delete_sale(id)
 
 
 def update_sale_data(id: int, sale: Sale) -> None:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
-    if not (error := is_valid_sale(sale)):
+    if (error := is_valid_sale(sale)) != True:
         return error
     return update_sale(id, sale)

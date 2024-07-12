@@ -10,26 +10,26 @@ def get_all_producers_data() -> list[RealDictCursor]:
 
 
 def get_producer_data_by_id(id: int) -> RealDictCursor:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
     return get_producer_by_id(id)
 
 
 def create_new_producer(producer: Producer) -> None:
-    if not (error := is_valid_producer(producer)):
+    if (error := is_valid_producer(producer)) != True:
         return error
     return add_producer(producer)
 
 
 def delete_producer_data(id: int) -> None:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
     return delete_producer(id)
 
 
 def update_producer_data(id: int, producer: Producer) -> None:
-    if not (error := check_id(id)):
+    if (error := check_id(id)) != True:
         return error
-    if not (error := is_valid_producer(producer)):
+    if (error := is_valid_producer(producer)) != True:
         return error
     return update_producer(id, producer)
