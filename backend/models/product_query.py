@@ -1,10 +1,12 @@
+from fastapi import FastAPI, Depends, Query
 from pydantic import BaseModel
+from typing import Optional
 
 class ProductQuery(BaseModel):
-    name: str = None
-    min_price: int = None
-    max_price: int = None
-    min_stock: int = None
-    max_stock: int = None
-    category_id: int = None
-    producer_id: int = None
+    name: Optional[str] = Query(None)
+    min_price: Optional[int] = Query(None)
+    max_price: Optional[int] = Query(None)
+    min_stock: Optional[int] = Query(None)
+    max_stock: Optional[int] = Query(None)
+    category_id: Optional[int] = Query(None)
+    producer_id: Optional[int] = Query(None)
