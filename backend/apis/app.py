@@ -11,6 +11,6 @@ app.include_router(update_stock.router, prefix="")
 app.include_router(update_prices.router, prefix="")
 
 
-@app.get("/")
-async def read_root():
-    return {"Hello": "World"}
+# @app.get("/")
+# async def read_root():
+#     return {"Hello": "World"}
