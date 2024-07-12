@@ -20,7 +20,7 @@ def get_product_by_id(conn, id: int) -> RealDictCursor:
 
 
 @query_function
-def get_product_by_filter(conn, name: str=None, min_price: int=None, max_price: int=None, min_stock: int=None, max_stock: int=None, category_id: int=None, producer_id: int=None):
+def get_product_by_filter(conn, name: str=None, min_price: int=None, max_price: int=None, min_stock: int=None, max_stock: int=None, category_id: int=None, producer_id: int=None) -> list[RealDictCursor]:
     cursor = conn.cursor(cursor_factory=RealDictCursor)
     query = "SELECT * FROM products WHERE TRUE"
     params = []
