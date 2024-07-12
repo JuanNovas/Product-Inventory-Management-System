@@ -1,5 +1,6 @@
 from fastapi.routing import APIRouter
 from backend.apis.utils.status_response import status_response
+from backend.apis.utils.data_response import data_response
 from backend.logic.sales import get_all_sales_data, get_sale_data_by_id, create_new_sale, delete_sale_data, update_sale_data
 from backend.models.sales import Sale
 
@@ -8,13 +9,13 @@ router = APIRouter()
 @router.get("/sales")
 async def get_sales():
     data = get_all_sales_data()
-    return data
+    return data_response(data)
 
 
 @router.get("/sales/{id}")
 async def get_sale_by_id(id: int):
     data = get_sale_data_by_id(id)
-    return data
+    return data_response(data)
 
 
 @router.post("/sales")
