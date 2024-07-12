@@ -9,3 +9,8 @@ app.include_router(products.router, prefix="")
 app.include_router(sales.router, prefix="")
 app.include_router(update_stock.router, prefix="")
 app.include_router(update_prices.router, prefix="")
+
+
+@app.get("/")
+async def read_root():
+    return {"Hello": "World"}
