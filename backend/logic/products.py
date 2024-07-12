@@ -19,27 +19,50 @@ def get_product_data_by_id(id: int) -> RealDictCursor:
 
 
 def get_product_data_by_filter(product_query: ProductQuery) -> list[RealDictCursor]:
-    if type(product_query.name) != str and product_query.name is not None:
-        return TypeError("Name has to be an string")
-    product_query.name = product_query.name.strip()
-    if len(product_query.name) > 255:
-        return ValueError("Name len must be less than 255")
-    if len(product_query.name) == 0:
-        return ValueError("Name cannot be null")
+    if product_query.name is not None:
+        if type(product_query.name) != str:
+            return TypeError("Name has to be an string")
+        else:
+            product_query.name = product_query.name.strip()
+            if len(product_query.name) > 255:
+                return ValueError("Name len must be less than 255")
+            if len(product_query.name) == 0:
+                return ValueError("Name cannot be null")
+        
     
-    if type(product_query.min_price) != int and product_query.min_price is not None or type(product_query.max_price) != int and product_query.max_price is not None:
-        return TypeError("Price must be an int")
-    if product_query.min_price < 0:
-        return ValueError("Price must be at least 0")
-    if product_query.max_price < product_query.min_price:
-        return ValueError("Max price must be more or equal than min price")
+    if product_query.min_price is not None:
+        if type(product_query.min_price) != int:
+            return TypeError("Price must be an int")
+        if product_query.min_price < 0:
+            return ValueError("Price must be at least 0")
     
-    if type(product_query.min_stock) != int and product_query.min_stock is not None or type(product_query.max_stock) != int and product_query.max_stock is not None:
-        return TypeError("Stock must be an int")
-    if product_query.min_stock < 0:
-        return ValueError("Stock must be at least 0")
-    if product_query.max_stock < product_query.min_stock:
-        return ValueError("Max stock must be more or equal than min stock")
+    if product_query.max_price is not None:
+        if type(product_query.max_price) != int:
+            return TypeError("Price must be an int")
+        if product_query.max_price < 0:
+            return ValueError("Price must be at least 0")
+    
+    if product_query.min_price and product_query.max_price:
+        if product_query.max_price < product_query.min_price:
+            return ValueError("Max price must be more or equal than min price")
+    
+    
+    if product_query.min_stock is not None:
+        if type(product_query.min_stock) != int:
+            return TypeError("Stock must be an int")
+        if product_query.min_stock < 0:
+            return ValueError("Stock must be at least 0")
+    
+    if product_query.max_stock is not None:
+        if type(product_query.max_stock) != int:
+            return TypeError("Stock must be an int")
+        if product_query.max_stock < 0:
+            return ValueError("Stock must be at least 0")
+    
+    if product_query.min_stock and product_query.max_stock:
+        if product_query.max_stock < product_query.min_stock:
+            return ValueError("Max Stock must be more or equal than min stock")
+    
     
     if type(product_query.producer_id) != int and product_query.producer_id is not None:
         return TypeError("Producer_id must be a number")
