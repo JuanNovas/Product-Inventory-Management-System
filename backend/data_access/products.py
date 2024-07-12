@@ -20,10 +20,44 @@ def get_product_by_id(conn, id: int) -> RealDictCursor:
 
 
 @query_function
-def get_product_by_producer(conn, producer_id: int):
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM products WHERE producer_id = (%s)",(producer_id,))
+def get_product_by_filter(conn, name: str=None, min_price: int=None, max_price: int=None, min_stock: int=None, max_stock: int=None, category_id: int=None, producer_id: int=None):
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    query = "SELECT * FROM products WHERE TRUE"
+    params = []
+    
+    if name:
+        query += " AND name ILIKE %s"
+        params.append(f"%{name}%")
+    
+    if min_price is not None:
+        query += " AND price >= %s"
+        params.append(min_price)
+    
+    if max_price is not None:
+        query += " AND price <= %s"
+        params.append(max_price)
+    
+    if min_stock is not None:
+        query += " AND stock >= %s"
+        params.append(min_stock)
+    
+    if max_stock is not None:
+        query += " AND stock <= %s"
+        params.append(max_stock)
+    
+    if category_id is not None:
+        query += " AND category_id = %s"
+        params.append(category_id)
+    
+    if producer_id is not None:
+        query += " AND producer_id = %s"
+        params.append(producer_id)
+    
+    cursor.execute(query,params)
     conn.commit()
+    
+    products = cursor.fetchall()
+    return products
 
 
 @query_function
