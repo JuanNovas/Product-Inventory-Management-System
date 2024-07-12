@@ -20,6 +20,13 @@ def get_product_by_id(conn, id: int) -> RealDictCursor:
 
 
 @query_function
+def get_product_by_producer(conn, producer_id: int):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM products WHERE producer_id = (%s)",(producer_id,))
+    conn.commit()
+
+
+@query_function
 def add_product(conn, product: Product):
     cursor = conn.cursor()
     cursor.execute('INSERT INTO products (name,price,stock,category_id,producer_id) VALUES (%s,%s,%s,%s,%s)',(product.name,product.price,product.stock,product.category_id,product.producer_id))
