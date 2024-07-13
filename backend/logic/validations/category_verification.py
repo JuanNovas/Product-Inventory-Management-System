@@ -6,7 +6,7 @@ def is_valid_category(category: Category) -> None:
         return TypeError("Name has to be an string")
     category.name = category.name.strip()
     if len(category.name) > 100:
-        return ValueError("Name len must be less than 100")
+        return ValueError("Name len must be less than 101")
     if len(category.name) == 0:
         return ValueError("Name cannot be null")
     

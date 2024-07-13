@@ -6,7 +6,7 @@ def is_valid_product(product: Product) -> None:
         return TypeError("Name must be a string")
     product.name = product.name.strip()
     if len(product.name) > 255:
-        return ValueError("Name len must be less than 255")
+        return ValueError("Name len must be less than 256")
     if len(product.name) == 0:
         return ValueError("Name cannot be null")
     
