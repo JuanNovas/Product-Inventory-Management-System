@@ -38,7 +38,7 @@ def delete_category(conn, id: int) -> None:
 @query_function
 def update_category(conn, id: int, category: Category) -> None:
     cursor = conn.cursor()
-    cursor.execute("UPDATE categories SET name = (%s) WHERE id = (%s)",(category.name, id))
+    cursor.execute("UPDATE categories SET name = (%s) WHERE id = (%s) RETURNING id",(category.name, id))
     conn.commit()
     
     was_id_updated(cursor)
