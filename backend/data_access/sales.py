@@ -21,8 +21,9 @@ def get_sale_by_id(conn, id: int) -> RealDictCursor:
 @query_function
 def add_sale(conn, sale: Sale) -> None:
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO sales (product_id,total_price,amount) VALUES (%s,%s,%s)',(sale.product_id,sale.total_price,sale.amount))
+    cursor.execute('INSERT INTO sales (product_id,total_price,amount) VALUES (%s,%s,%s) RETURNING id',(sale.product_id,sale.total_price,sale.amount))
     conn.commit()
+    was_id_updated(cursor)
     
     
 @query_function

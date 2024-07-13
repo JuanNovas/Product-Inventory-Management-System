@@ -16,3 +16,6 @@ def is_valid_sale(sale: Sale):
         return TypeError("Amount must be an int")
     if sale.amount < 1:
         return ValueError("Amount must be at least 1")
+    
+    
+    return True
