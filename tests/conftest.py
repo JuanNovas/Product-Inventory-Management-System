@@ -22,8 +22,6 @@ def clean_db():
     data = config()
     conn = psycopg2.connect(**data)
     cursor = conn.cursor()
-    # Truncar tablas
-    cursor.execute("TRUNCATE TABLE sales, products, producers, categories RESTART IDENTITY CASCADE")
     conn.commit()
     cursor.close()
     conn.close()

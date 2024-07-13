@@ -37,14 +37,14 @@ jobs:
 
     - name: Wait for PostgreSQL to be ready
       run: |
-        until pg_isready -h localhost -p 5432 -U test_user; do
+        until pg_isready -h localhost -p 5438 -U test_user; do
           echo "Waiting for PostgreSQL to be ready..."
           sleep 2
         done
 
     - name: Apply database schema
       run: |
-        psql postgresql://test_user:test_password@localhost:5432/test_db -f ./database/init_db.sql
+        psql postgresql://test_user:test_password@localhost:5438/test_db -f ./database/init_db.sql
 
     - name: Run tests
       run: |
