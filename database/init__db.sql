@@ -44,7 +44,7 @@ BEGIN;
 INSERT INTO categories (name) VALUES ('food');
 INSERT INTO categories (name) VALUES ('clothes');
 
-INSERT INTO producers (name) VALUES ('productor');
-INSERT INTO producers (name) VALUES ('productora');
+INSERT INTO producers (name) VALUES ('ABC');
+INSERT INTO producers (name) VALUES ('123');
 
 COMMIT;
