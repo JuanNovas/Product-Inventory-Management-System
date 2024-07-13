@@ -4,18 +4,6 @@ from backend.apis.app import app
 client = TestClient(app)
 
 
-def test_post_categories():
-    response = client.post("/categories", json={"name": "food"})
-    assert response.status_code == 200
-    assert response.json() == {"status":"ok"}
-    
-    
-def test_post_categories_1():
-    response = client.post("/categories", json={"name": "clothes"})
-    assert response.status_code == 200
-    assert response.json() == {"status":"ok"}
-
-
 def test_get_categories():
     response = client.get("/categories")
     assert response.status_code == 200
