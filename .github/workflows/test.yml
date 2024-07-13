@@ -44,7 +44,7 @@ jobs:
 
     - name: Apply database schema
       run: |
-        psql postgresql://myuser:mypassword@localhost:5438/mydb -f ./database/init_db.sql
+        psql postgresql://myuser:mypassword@localhost:5438/mydb -f ./database/init__db.sql
 
     - name: Run tests
       run: |
