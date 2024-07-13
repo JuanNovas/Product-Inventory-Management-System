@@ -19,21 +19,26 @@ def test_post_products_1():
 def test_get_products():
     response = client.get("/products")
     assert response.status_code == 200
-    assert response.json() == [{
-        "id": 1,
-        "name":"pizza",
-        "price":10,
-        "stock":10,
-        "category_id":1,
-        "producer_id":3
-    },
+    assert response.json() == [
     {
         "id": 2,
         "name":"hamburger",
         "price":6,
         "stock":15,
+        "category":"food",
+        "producer":"ABC",
         "category_id":1,
         "producer_id":1
+    },
+    {
+        "id": 1,
+        "name":"pizza",
+        "price":10,
+        "stock":10,
+        "category":"food",
+        "producer":"890",
+        "category_id":1,
+        "producer_id":3
     }]
     
     
@@ -57,6 +62,8 @@ def test_get_products_1():
         "name":"pizza",
         "price":14,
         "stock":10,
+        "category": "food",
+        "producer": "890",
         "category_id":1,
         "producer_id":3
     }]

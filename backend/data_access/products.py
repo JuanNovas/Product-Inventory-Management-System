@@ -7,7 +7,7 @@ from backend.data_access.utils.update_check import was_id_updated
 @query_function
 def get_all_products(conn) -> list[RealDictCursor]:
     cursor = conn.cursor(cursor_factory=RealDictCursor)
-    cursor.execute('SELECT * FROM products')
+    cursor.execute("SELECT products.id, products.name, products.price, products.stock, categories.name AS category, producers.name AS producer, products.category_id, products.producer_id FROM products LEFT JOIN categories ON products.category_id = categories.id LEFT JOIN producers ON products.producer_id = producers.id")
     products = cursor.fetchall()
     return products
 
@@ -15,14 +15,14 @@ def get_all_products(conn) -> list[RealDictCursor]:
 @query_function
 def get_product_by_id(conn, id: int) -> RealDictCursor:
     cursor = conn.cursor(cursor_factory=RealDictCursor)
-    cursor.execute("SELECT * FROM products WHERE id = (%s)",(id,))
+    cursor.execute("SELECT products.id, products.name, products.price, products.stock, categories.name AS category, producers.name AS producer, products.category_id, products.producer_id FROM products LEFT JOIN categories ON products.category_id = categories.id LEFT JOIN producers ON products.producer_id = producers.id WHERE products.id = (%s);", (id,))
     return cursor.fetchone()
 
 
 @query_function
 def get_product_by_filter(conn, name: str=None, min_price: int=None, max_price: int=None, min_stock: int=None, max_stock: int=None, category_id: int=None, producer_id: int=None) -> list[RealDictCursor]:
     cursor = conn.cursor(cursor_factory=RealDictCursor)
-    query = "SELECT * FROM products WHERE TRUE"
+    query = "SELECT products.id, products.name, products.price, products.stock, categories.name AS category, producers.name AS producer, products.category_id, products.producer_id FROM products LEFT JOIN categories ON products.category_id = categories.id LEFT JOIN producers ON products.producer_id = producers.id WHERE TRUE"
     params = []
     
     if name:
@@ -63,7 +63,7 @@ def get_product_by_filter(conn, name: str=None, min_price: int=None, max_price: 
 @query_function
 def add_product(conn, product: Product):
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO products (name,price,stock,category_id,producer_id) VALUES (%s,%s,%s,%s,%s)',(product.name,product.price,product.stock,product.category_id,product.producer_id))
+    cursor.execute("INSERT INTO products (name,price,stock,category_id,producer_id) VALUES (%s,%s,%s,%s,%s)",(product.name,product.price,product.stock,product.category_id,product.producer_id))
     conn.commit()
     
     
