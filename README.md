@@ -2,14 +2,14 @@
 This project showcases the backend of a product inventory management system built using FastAPI as the Framework, PosgreSQL as the Database and following a Layered Architechture.
 
 ## 📋 Table of content
-- [📌 Project Scope](#project-scope)
+- [📌 Project Scope](#-project-scope)
 - [🔧 Technologies](#-technologies-used)
-- [🏗️ Architecture](#-architecture)
+- [📐 Architecture](#-architecture)
 - [💾 Database](#-database)
 - [🧪 Testing](#-testing)
 - [🌐 API Endpoints](#-api-endpoints)
 - [📂 Directory Structure](#-directory-structure)
-- [⚙️ Installation](#-installation)
+- [📥 Installation](#-installation)
 - [🚀 Usage](#-usage)
 
 ## 📌 Project Scope
@@ -22,7 +22,7 @@ This project simulates the backend of an inventory management system with a focu
 - Docker 🐋
 - Pytest 🧪
 
-## 🏗️ Architecture
+## 📐 Architecture
 The project's code organization follows a layered architecture, where each layer communicates with the one above or below it. This allows some processes such as data validation and database queries to be separated, making it easier to track the process and prevent security bugs.
 ![Layered architecture graph](readme_images/architecture_graph.png)
 ### APIs Layer 📡
@@ -73,7 +73,7 @@ For specific information about all the endpoints and methods allowed [click here
 - **tests/**: Project tests.
 - **readme_images/**: Images for the README you are reading
 
-## ⚙️ Installation
+## 📥 Installation
 
 ### Prerequisites
 
