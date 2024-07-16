@@ -144,7 +144,7 @@
     {
       "producer_id": 11,(optional)
       "category_id": 22,(optional)
-      "rate": 33
+      "rate": 0.33
     }
     ```
 
